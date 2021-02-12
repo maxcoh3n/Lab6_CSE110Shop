@@ -26,9 +26,27 @@ class ProductItem extends HTMLElement {
     this.price.classList.add("price");
     this.wrapper.appendChild(this.price);
 
+    const onClick = function(){
+      const cartCount = document.getElementById('cart-count');
+      if(!this.added){
+        alert("Added To Cart!")
+        cartCount.innerHTML ++;
+        this.innerHTML = "Remove From Cart";
+        
+      }else{
+        alert("Removed From Cart!")
+        cartCount.innerHTML--;
+        this.innerHTML = "Add to Cart";
+      }
+      this.added = ! this.added;
+    }
+
+
     const button = document.createElement("button");
-    button.addEventListener("onclick", ()=>alert('Added to Cart!'));
+    // button.addEventListener("onclick", ()=>console.lgog("shit"));
+    button.onclick = onClick;
     button.innerHTML = "Add to Cart";
+    button.added = false;
     this.wrapper.appendChild(button);
     
     this.shadowRoot.append(this.wrapper);
