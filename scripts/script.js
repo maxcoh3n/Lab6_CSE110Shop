@@ -18,7 +18,6 @@ window.addEventListener("DOMContentLoaded", () => {
     productItem.addTitle(product.title);
     productItem.addPrice(product.price);
     document.querySelector("ul").appendChild(productItem);
-    break;
   }
 });
 
