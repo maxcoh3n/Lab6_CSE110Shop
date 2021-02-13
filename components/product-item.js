@@ -5,6 +5,8 @@ class ProductItem extends HTMLElement {
   img;
   title;
   price;
+  id;
+  button;
   constructor() {
     super();
 
@@ -26,28 +28,10 @@ class ProductItem extends HTMLElement {
     this.price.classList.add("price");
     this.wrapper.appendChild(this.price);
 
-    const onClick = function(){
-      const cartCount = document.getElementById('cart-count');
-      if(!this.added){
-        alert("Added To Cart!")
-        cartCount.innerHTML ++;
-        this.innerHTML = "Remove From Cart";
-        
-      }else{
-        alert("Removed From Cart!")
-        cartCount.innerHTML--;
-        this.innerHTML = "Add to Cart";
-      }
-      this.added = ! this.added;
-    }
-
-
-    const button = document.createElement("button");
-    // button.addEventListener("onclick", ()=>console.lgog("shit"));
-    button.onclick = onClick;
-    button.innerHTML = "Add to Cart";
-    button.added = false;
-    this.wrapper.appendChild(button);
+    this.button = document.createElement("button");
+    this.button.onclick = () => this.onClick(true);
+    this.button.innerHTML = "Add to Cart";
+    this.wrapper.appendChild(this.button);
     
     this.shadowRoot.append(this.wrapper);
 
@@ -69,6 +53,34 @@ class ProductItem extends HTMLElement {
     this.shadowRoot.append(style);  
   }
 
+  
+
+  onClick(isHumanClick){
+    console.log("onclick")
+    const cartCount = document.getElementById('cart-count');
+    const myStorage = window.localStorage;
+
+    let added = false;
+    if(isHumanClick){
+      added = myStorage.getItem(this.id);
+      console.log(added)
+      added = Boolean(added);
+      myStorage.setItem(this.id, (added)? '' : 'added');
+    }
+
+      myStorage.getItem(this.id);
+      if(!added){
+        if(isHumanClick) alert("Added To Cart!")
+        cartCount.innerHTML ++;
+        this.button.innerHTML = "Remove From Cart";
+        
+      }else{
+        if(isHumanClick) alert("Removed From Cart!")
+        cartCount.innerHTML--;
+        this.button.innerHTML = "Add to Cart";
+      }
+    }
+
   addImg(src,alt){
     this.img.src = src;
     this.img.alt = alt;
@@ -80,6 +92,10 @@ class ProductItem extends HTMLElement {
 
   addPrice(price){
     this.price.innerHTML = price;
+  }
+
+  addId(id){
+    this.id = id;
   }
 }
 
