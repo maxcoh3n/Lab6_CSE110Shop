@@ -56,14 +56,12 @@ class ProductItem extends HTMLElement {
   
 
   onClick(isHumanClick){
-    console.log("onclick")
     const cartCount = document.getElementById('cart-count');
     const myStorage = window.localStorage;
 
     let added = false;
     if(isHumanClick){
       added = myStorage.getItem(this.id);
-      console.log(added)
       added = Boolean(added);
       myStorage.setItem(this.id, (added)? '' : 'added');
     }

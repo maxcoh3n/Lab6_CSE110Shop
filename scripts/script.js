@@ -18,10 +18,8 @@ window.addEventListener("DOMContentLoaded", () => {
     productItem.addPrice(product.price);
     productItem.addId(product.id);
     const added = myStorage.getItem(product.id);
-    if (added) {productItem.onClick(false); console.log("auto click")};
+    if (added) productItem.onClick(false);
     document.querySelector("ul").appendChild(productItem);
   }
-  console.log(productsArr[0])
 });
 
-// node.bleep();
